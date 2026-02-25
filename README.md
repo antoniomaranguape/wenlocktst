@@ -1,6 +1,6 @@
 # WenLock — Teste Técnico Instituto Connecthub
 
-Projeto de teste técnico do **Instituto Connecthub** para nivelamento de desenvolvedores. Consiste em uma aplicação web (dashboard) com layout responsivo, sidebar colapsável e navegação entre páginas.
+Projeto de teste técnico do **Instituto Connecthus** para nivelamento de desenvolvedores. Consiste em uma aplicação web com listagem de usuario e tela de home.
 
 ## Sobre o projeto
 
