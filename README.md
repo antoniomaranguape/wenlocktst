@@ -1,73 +1,100 @@
-# React + TypeScript + Vite
+# WenLock — Teste Técnico Instituto Connecthub
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Projeto de teste técnico do **Instituto Connecthub** para nivelamento de desenvolvedores. Consiste em uma aplicação web (dashboard) com layout responsivo, sidebar colapsável e navegação entre páginas.
 
-Currently, two official plugins are available:
+## Sobre o projeto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+A aplicação simula um painel **WenLock** com:
 
-## React Compiler
+- **Layout principal**: sidebar fixa (aberta/fechada), header e área de conteúdo
+- **Navegação**: Home e Controle de Acesso (submenu Usuários)
+- **Páginas**: Home (boas-vindas) e Usuários (em desenvolvimento)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+O foco do teste é demonstrar domínio de React, TypeScript, roteamento e organização de componentes.
 
-## Expanding the ESLint configuration
+## Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **React** 19 + **TypeScript**
+- **Vite** 7
+- **React Router DOM** 7
+- **Styled Components** 6
+- **Lucide React** (ícones)
+- **ESLint**
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Estrutura do projeto
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── assets/imagens/     # SVGs e imagens (logo, ícones)
+├── components/
+│   ├── headline/       # Header da aplicação
+│   └── sidebar/        # Menu lateral (navegação + toggle)
+├── pages/
+│   ├── app/            # Layout com sidebar + Outlet
+│   ├── home/           # Página inicial
+│   └── user/           # Página de usuários (Controle de Acesso)
+├── routes/             # Definição de rotas (/, /home, /user)
+├── App.tsx
+└── main.tsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Como rodar
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Pré-requisitos
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Node.js (recomendado LTS)
+- npm, pnpm ou yarn
+
+### Instalação
+
+```bash
+npm install
+# ou
+pnpm install
 ```
+
+### Desenvolvimento
+
+```bash
+npm run dev
+# ou
+pnpm dev
+```
+
+Acesse [http://localhost:5173](http://localhost:5173). A rota `/` redireciona para `/home`.
+
+### Build
+
+```bash
+npm run build
+# ou
+pnpm build
+```
+
+### Preview do build
+
+```bash
+npm run preview
+# ou
+pnpm preview
+```
+
+### Lint
+
+```bash
+npm run lint
+# ou
+pnpm lint
+```
+
+## Rotas
+
+| Rota   | Página   | Descrição                    |
+|--------|----------|------------------------------|
+| `/`    | —        | Redireciona para `/home`     |
+| `/home`| Home     | Dashboard / boas-vindas      |
+| `/user`| Usuários | Controle de Acesso > Usuários|
+
+## Licença
+
+Projeto de uso interno para processo seletivo/nivelamento do Instituto Connecthub.
