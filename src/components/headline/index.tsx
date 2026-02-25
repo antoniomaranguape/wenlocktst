@@ -1,10 +1,10 @@
 import { LogOut } from "lucide-react";
 import "./style.css";
 
-//Dados mocados
+//dados mocados
 const user = {
-  name: "Lorena Novaes",
-  email: "lorenadoantonio@email.com",
+  name: "Antonio Maranguape",
+  email: "antonio.maranguape@email.com",
 };
 
 const getInitials = (name: string) => {

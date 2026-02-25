@@ -3,52 +3,28 @@ import Sidebar from "../../components/sidebar";
 import "./style.css";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Header from "../../component/headline";
+import Header from "../../components/headline";
 function App() {
   const [open, setOpen] = useState(true);
 
-//   return (
-//     <div>
-//       <Header />
-//       <div className="container-main">
-//         <div className={`sideBarStyle ${!open ? "sidebar-closed" : ""}`}>
-//           <Sidebar isOpen={open} />
-//           <button className="sidebar-toggle" onClick={() => setOpen(!open)}>
-//             {open ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
-//           </button>
-//         </div>
-//         <div className="content">
-//           <div className="outlet-container">
-//             <Outlet />
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default App;
-
-return (
-  <div className="app-layout">
-    <div className={`sideBarStyle ${!open ? "sidebar-closed" : ""}`}>
-           <Sidebar isOpen={open} />
-   <button className="sidebar-toggle" onClick={() => setOpen(!open)}>
-    {open ? <ChevronLeft size={16} /> : <ChevronRight size={16}   />}
-   </button>    
-  </div>
-
-  <div className="main-content-area">
-  <Header />
-  <div className="outlet-container">
-  <Outlet />
-
-
-  
-</div>
-</div>
-  </div>
-);
+  return (
+    <div className="app-root">
+      <div className={`sideBarStyle ${!open ? "sidebar-closed" : ""}`}>
+        <Sidebar isOpen={open} />
+        <button className="sidebar-toggle" onClick={() => setOpen(!open)}>
+          {open ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
+        </button>
+      </div>
+      <div className="main-with-header">
+        <Header />
+        <div className="content">
+          <div className="outlet-container">
+            <Outlet />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 export default App;
 
