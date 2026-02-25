@@ -4,106 +4,118 @@ import { useNavigate } from "react-router-dom";
 import imagemTabela from "../../assets/imagens/Wenlock.svg";
 import imagemLogo from "../../assets/imagens/WlLogo.svg";
 import botao from "../../assets/imagens/botaoHome.svg";
-import "./style.css";
+import {
+  SidebarWrapper,
+  SidebarHeader,
+  ImagemWenlock,
+  ImagemWenlockMini,
+  SidebarNav,
+  MenuItem,
+  MenuIcon,
+  MenuText,
+  MenuChevron,
+  MenuGroup,
+  Submenu,
+  SubmenuItem,
+  BotaoHome,
+  SidebarFooter,
+  FooterInfo,
+  FooterMini,
+} from "./style";
 
 type Props = {
   isOpen: boolean;
 };
 
 function Sidebar({ isOpen }: Props) {
-  // if (isOpen) false;
-
-  // const [sidebarOpen, setSidebarOpen] = useState(true);
   const [activeMenu, setActiveMenu] = useState("home");
   const [controleAcessoOpen, setControleAcessoOpen] = useState(false);
   const navigate = useNavigate();
-  // const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
   return (
-    <div className="sidebar">
-      <div className="sidebar-header">
+    <SidebarWrapper>
+      <SidebarHeader>
         {isOpen ? (
-          <div className="imagemWenlock">
-            <img src={imagemTabela} alt="illustration" />
-          </div>
+          <ImagemWenlock>
+            <img src={imagemTabela} alt="WenLock" />
+          </ImagemWenlock>
         ) : (
-          <div className="imagemWenlockMini">
-            <img src={imagemLogo} alt="wenlockLogo" />
-          </div>
+          <ImagemWenlockMini>
+            <img src={imagemLogo} alt="WenLock" />
+          </ImagemWenlockMini>
         )}
-      </div>
+      </SidebarHeader>
 
-      <nav className="sidebar-nav">
-        <button
-          onClick={() => setActiveMenu("home")}
-          className={`menu-item ${
-            activeMenu === "home" ? "menu-item-active" : ""
-          }`}
+      <SidebarNav>
+        <MenuItem
+          type="button"
+          onClick={() => {
+            setActiveMenu("home");
+            navigate("/home");
+          }}
+          $isActive={activeMenu === "home"}
         >
           {isOpen && (
-            <span className="menu-text">
+            <MenuText>
               <strong> Home </strong>
-            </span>
+            </MenuText>
           )}
-          <div className="botaoHome">
-            <img src={botao} alt="homeButton" />
-          </div>
-        </button>
+          <BotaoHome>
+            <img src={botao} alt="Home" />
+          </BotaoHome>
+        </MenuItem>
 
-        <div className="menu-group">
-          <button
+        <MenuGroup>
+          <MenuItem
+            type="button"
             onClick={() => isOpen && setControleAcessoOpen(!controleAcessoOpen)}
-            className={`menu-item ${
-              activeMenu === "controle" ? "menu-item-active" : ""
-            }`}
+            $isActive={activeMenu === "controle"}
           >
-            <Lock size={20} className="menu-icon" />
+            <MenuIcon>
+              <Lock size={20} />
+            </MenuIcon>
             {isOpen && (
               <>
-                <span className="menu-text">Controle de Acesso</span>
-                <ChevronRight
-                  size={16}
-                  className={`menu-chevron ${
-                    controleAcessoOpen ? "menu-chevron-open" : ""
-                  }`}
-                />
+                <MenuText>Controle de Acesso</MenuText>
+                <MenuChevron $isOpen={controleAcessoOpen}>
+                  <ChevronRight size={16} />
+                </MenuChevron>
               </>
             )}
-          </button>
+          </MenuItem>
 
           {isOpen && controleAcessoOpen && (
-            <div className="submenu">
-              <button
+            <Submenu>
+              <SubmenuItem
+                type="button"
                 onClick={() => {
                   setActiveMenu("usuarios");
                   navigate("/user");
                 }}
-                className={`submenu-item ${
-                  activeMenu === "usuarios" ? "submenu-item-active" : ""
-                }`}
+                $isActive={activeMenu === "usuarios"}
               >
                 <Users size={16} />
                 <span>Usuários</span>
-              </button>
-            </div>
+              </SubmenuItem>
+            </Submenu>
           )}
-        </div>
-      </nav>
+        </MenuGroup>
+      </SidebarNav>
 
-      <div className="sidebar-footer">
+      <SidebarFooter>
         {isOpen ? (
-          <div className="footer-info">
+          <FooterInfo>
             <p>© WenLock</p>
             <p>Powered by Connecthub</p>
             <p>v.0.8.0</p>
-          </div>
+          </FooterInfo>
         ) : (
-          <div className="footer-mini">
+          <FooterMini>
             <p>©WL</p>
-          </div>
+          </FooterMini>
         )}
-      </div>
-    </div>
+      </SidebarFooter>
+    </SidebarWrapper>
   );
 }
 
