@@ -1,35 +1,36 @@
-import './style.css';
 import imagemHome from "../../assets/imagens/home.svg";
-
+import {
+  DashboardContainer,
+  MainContent,
+  ContentArea,
+  TextHome,
+  TextHomeTitle,
+  WelcomeCard,
+  Imagem,
+  WelcomeMessage,
+} from "./style";
 
 function Home() {
-
-
   return (
-    <div className="dashboard-container">
-      
-
-      <div className="main-content">
-        
-          <div className='textHome'>
-              <h1>Home</h1>
-             
-            </div>
-
-        <div className="content-area">
-          <div className="welcome-card">
-             <h2>Olá Millena!!</h2>
-              <p><strong>22, Novembro 2025</strong></p>
-            <div className="imagem">
+    <DashboardContainer>
+      <MainContent>
+        <TextHome>
+          <TextHomeTitle>Home</TextHomeTitle>
+        </TextHome>
+        <ContentArea>
+          <WelcomeCard>
+            <h2>Olá Millena!!</h2>
+            <p><strong>22, Novembro 2025</strong></p>
+            <Imagem>
               <img src={imagemHome} alt="Welcome illustration" />
-            </div>
-            <div className="welcome-message">
+            </Imagem>
+            <WelcomeMessage>
               <h2>Bem-vindo ao WenLock!</h2>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+            </WelcomeMessage>
+          </WelcomeCard>
+        </ContentArea>
+      </MainContent>
+    </DashboardContainer>
   );
 }
 
