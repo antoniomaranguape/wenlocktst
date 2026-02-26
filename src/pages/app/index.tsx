@@ -1,29 +1,39 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "../../components/sidebar";
-import "./style.css";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Header from "../../components/headline";
+import {
+  GlobalStyles,
+  AppRoot,
+  SideBarStyle,
+  MainWithHeader,
+  Content,
+  SidebarToggle,
+  OutletContainer,
+} from "./style";
+
 function App() {
   const [open, setOpen] = useState(true);
 
   return (
-    <div className="app-root">
-      <div className={`sideBarStyle ${!open ? "sidebar-closed" : ""}`}>
+    <AppRoot>
+      <GlobalStyles />
+      <SideBarStyle $isClosed={!open}>
         <Sidebar isOpen={open} />
-        <button className="sidebar-toggle" onClick={() => setOpen(!open)}>
+        <SidebarToggle onClick={() => setOpen(!open)}>
           {open ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
-        </button>
-      </div>
-      <div className="main-with-header">
+        </SidebarToggle>
+      </SideBarStyle>
+      <MainWithHeader>
         <Header />
-        <div className="content">
-          <div className="outlet-container">
+        <Content>
+          <OutletContainer>
             <Outlet />
-          </div>
-        </div>
-      </div>
-    </div>
+          </OutletContainer>
+        </Content>
+      </MainWithHeader>
+    </AppRoot>
   );
 }
 export default App;
