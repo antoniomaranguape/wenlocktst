@@ -1,5 +1,15 @@
-import { LogOut } from "lucide-react";
-import "./style.css";
+import { LogOut, ChevronUp } from "lucide-react";
+import {
+  HeaderContainer,
+  UserProfile,
+  UserAvatar,
+  UserAvatarChevron,
+  UserDropdown,
+  UserInfo,
+  UserName,
+  UserEmail,
+  LogoutButton,
+} from "./style";
 
 //dados mocados
 const user = {
@@ -20,25 +30,26 @@ function Header() {
   };
 
   return (
-    <header className="header-container">
-      <div className="user-profile">
-        {}
-        <div className="user-avatar">
+    <HeaderContainer>
+      <UserProfile>
+        <UserAvatar>
           <span>{getInitials(user.name)}</span>
-        </div>
-        {}
-        <div className="user-dropdown">
-          <div className="user-info">
-            <p className="user-name">{user.name}</p>
-            <p className="user-email">{user.email}</p>
-          </div>
-          <button className="logout-button" onClick={handleLogout}>
+          <UserAvatarChevron>
+            <ChevronUp size={10} color="white" strokeWidth={2.5} />
+          </UserAvatarChevron>
+        </UserAvatar>
+        <UserDropdown>
+          <UserInfo>
+            <UserName>{user.name}</UserName>
+            <UserEmail>{user.email}</UserEmail>
+          </UserInfo>
+          <LogoutButton onClick={handleLogout}>
             <LogOut size={16} />
             <span>Sair</span>
-          </button>
-        </div>
-      </div>
-    </header>
+          </LogoutButton>
+        </UserDropdown>
+      </UserProfile>
+    </HeaderContainer>
   );
 }
 

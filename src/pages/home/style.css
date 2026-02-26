@@ -22,12 +22,7 @@
   padding: 32px;
   box-sizing: border-box;
   overflow: hidden;
-  max-width: 900px;
-}
-
-/* Título "Home" no topo, fora do card */
-.textHome {
-  margin: 0 0 32px;
+  width: 100%;
 }
 
 .textHome h1 {
@@ -73,7 +68,7 @@
 }
 
 .imagem img {
-  max-width: 100%;
+  max-width: 70%;
   height: auto;
   display: block;
 }
