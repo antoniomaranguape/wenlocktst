@@ -64,7 +64,7 @@ export const AnimationContainer = styled.div<{
 export const Tittle = styled.div`
   & > h1 {
     font-size: 5em;
-    color: rgb(212, 2, 11, 1);
+    color: #0290A4;
     font-family: sans-serif;
     font-weight: bold;
     text-align: left;
@@ -129,7 +129,7 @@ export const CardLogin = styled.div<{ animationStarted: boolean }>`
   padding-bottom: 10vw;
   border: 1px solid #000;
   border-radius: 8px;
-  background-color: #f5f5f5;
+  background-color: #fff;
 
   position: absolute;
   top: ${(props) => (props.animationStarted ? '50%' : '150%')};
@@ -213,7 +213,7 @@ export const InputWrapper = styled.div`
     transition: border-color 0.2s;
 
     &:focus-within {
-      border-color: #00aac1;
+      border-color: #0290A4;
       border-width: 2px;
       outline: none;
     }
@@ -266,7 +266,7 @@ export const ButtonLoginStyled = styled.button<{ disabled?: boolean }>`
   height: 5.5vh;
   min-height: 48px;
   color: #fff;
-  background-color: rgb(212, 2, 11);
+  background-color: #0290A4;
   border: none;
   border-radius: 4px;
   font-size: clamp(0.8rem, 0.2rem + 1.45vh, 1.25rem);
@@ -275,7 +275,7 @@ export const ButtonLoginStyled = styled.button<{ disabled?: boolean }>`
   transition: background-color 0.2s;
 
   &:hover:not(:disabled) {
-    background-color: #a60209;
+    background-color: #027a8a;
   }
 
   &:disabled {
