@@ -3,17 +3,23 @@ import { GlobalStyles } from "../pages/styles/styles";
 import Home from "../pages/home";
 import User from "../pages/user";
 import App from "../pages/app";
+import { Login } from "../pages/login";
+import { ProtectedRoute } from "./ProtectedRoute";
 
 export const Router = () => {
   return (
     <>
       <GlobalStyles />
       <Routes>
-      <Route element={<App />}>
-        <Route path="/" element={<Navigate to="/home" replace />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/user" element={<User />} />
-      </Route>
+        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route element={<ProtectedRoute />}>
+          <Route element={<App />}>
+            <Route path="/home" element={<Home />} />
+            <Route path="/user" element={<User />} />
+          </Route>
+        </Route>
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>
   );
