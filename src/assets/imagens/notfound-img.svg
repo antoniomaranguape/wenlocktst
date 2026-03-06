@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="130" height="130" viewBox="0 0 130 130" fill="none">
+  <circle cx="65" cy="65" r="60" stroke="#0b2b25" stroke-width="2" opacity="0.3"/>
+  <path d="M45 55 L85 55 L85 95 L45 95 Z" stroke="#0b2b25" stroke-width="2" fill="none" opacity="0.5"/>
+  <circle cx="65" cy="72" r="8" fill="#0b2b25" opacity="0.4"/>
+  <text x="65" y="115" text-anchor="middle" fill="#0b2b25" font-size="12" opacity="0.6">Nenhum resultado</text>
+</svg>
