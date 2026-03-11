@@ -1,4 +1,6 @@
 import { LogOut, ChevronUp } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 import {
   HeaderContainer,
   UserProfile,
@@ -25,8 +27,12 @@ const getInitials = (name: string) => {
 };
 
 function Header() {
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+
   const handleLogout = () => {
-    alert("Funcionalidade de logout a ser implementada!");
+    logout();
+    navigate("/login", { replace: true });
   };
 
   return (
