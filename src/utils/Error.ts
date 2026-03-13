@@ -1,5 +1,5 @@
 import type { AxiosError } from "axios";
-import { toast } from "react-toastify";
+import { showToast, ToastTypeEnum } from "./showToast";
 
 export interface ErrorResponse {
   message: string | string[];
@@ -15,5 +15,5 @@ export const handleError = (error: unknown) => {
   }
 
   console.error("Detalhes do erro:", axiosErr?.response ?? error);
-  toast.error(errorMessage);
+  showToast(ToastTypeEnum.Error, errorMessage);
 };
