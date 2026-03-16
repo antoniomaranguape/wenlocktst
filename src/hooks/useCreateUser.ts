@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { UserService } from "../services/user-service";
-import type { UserFormData } from "../schemas/userSchema";
 import { showToast, ToastTypeEnum } from "../utils/showToast/showToast";
 
 export const useCreateUser = () => {
@@ -16,13 +15,8 @@ export const useCreateUser = () => {
     isSuccess,
     reset,
   } = useMutation({
-    mutationFn: (data: UserFormData) =>
-      UserService.createUser({
-        name: data.name,
-        email: data.email,
-        matricula: data.matricula ?? "",
-        password: data.password,
-      }),
+    mutationFn: (userData: { name: string; email: string; matricula: string; password: string }) =>
+      UserService.createUser(userData),
     onSuccess: () => {
       showToast(ToastTypeEnum.Success, "Usuário cadastrado com sucesso!");
       queryClient.invalidateQueries({ queryKey: ["users"] });
@@ -33,8 +27,8 @@ export const useCreateUser = () => {
     },
   });
 
-  const createUser = (data: UserFormData) => {
-    mutate(data);
+  const createUser = (userData: { name: string; email: string; matricula: string; password: string }) => {
+    mutate(userData);
   };
 
   return {

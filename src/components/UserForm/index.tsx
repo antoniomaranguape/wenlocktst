@@ -10,7 +10,11 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ConfirmationModal from "../ConfirmationModal";
-import { userFormSchema, type UserFormData } from "../../schemas/userSchema";
+import {
+  userFormSchemaCreate,
+  userFormSchemaEdit,
+  type UserFormData,
+} from "../../schemas/userSchema";
 import { ArrowBack } from "../../assets/icons/ArrowBack";
 import {
   UserFormContainer,
@@ -52,12 +56,15 @@ const UserForm = ({
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 
+  const isEditMode = !!defaultValues;
+  const schema = isEditMode ? userFormSchemaEdit : userFormSchemaCreate;
+
   const {
     control,
     handleSubmit,
     formState: { errors, isValid, isDirty },
   } = useForm<UserFormData>({
-    resolver: zodResolver(userFormSchema),
+    resolver: zodResolver(schema),
     mode: "onChange",
     defaultValues: {
       name: "",

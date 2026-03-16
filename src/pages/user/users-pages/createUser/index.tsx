@@ -5,8 +5,9 @@ import { useCreateUser } from "../../../../hooks/useCreateUser";
 const CreateUser = () => {
   const { createUser, isLoading } = useCreateUser();
 
-  const handleSubmit = async (data: UserFormData) => {
-    createUser(data);
+  const handleSubmit = (data: UserFormData) => {
+    const { confirmPassword, ...userData } = data;
+    createUser(userData);
   };
 
   const handleCancel = () => {
@@ -15,8 +16,8 @@ const CreateUser = () => {
 
   return (
     <UserForm
-      title="Cadastrar Usuário"
-      submitButtonText="Salvar"
+      title="Cadastro de Usuário"
+      submitButtonText="Cadastrar"
       isLoading={isLoading}
       onSubmit={handleSubmit}
       onCancel={handleCancel}
