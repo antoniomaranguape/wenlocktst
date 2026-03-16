@@ -90,6 +90,13 @@ export const UsersTableContainer = styled(Paper)`
     font-size: 24px;
   }
 
+  .empty-state .empty-subtitle-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
   .empty-subtitle,
   .error-details {
     color: ${verdeEscuro};

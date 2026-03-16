@@ -27,7 +27,7 @@ import type { User } from "../../types/user.interface";
 import { useUsers } from "../../hooks/useUsers";
 import { useDeleteUser } from "../../hooks/useDeleteUser";
 import ConfirmationModal from "../../components/ConfirmationModal";
-import NotFoundImg from "../../assets/imagens/notfound-img.svg";
+import NoResultsImg from "../../assets/imagens/nonusers.svg";
 import {
   UsersContainer,
   PageTitle,
@@ -99,25 +99,35 @@ const UserPage = () => {
     }
 
     if (users.length === 0) {
+      const isNoSearchResults = Boolean(debouncedSearch);
       return (
         <div className="empty-state">
-          {debouncedSearch ? (
+          {isNoSearchResults && (
             <img
-              src={NotFoundImg}
-              alt="Nenhum resultado"
+              src={NoResultsImg}
+              alt="Nenhum resultado encontrado"
               className="notfound-image"
             />
-          ) : null}
+          )}
           <Typography variant="h6" className="empty-title">
-            {debouncedSearch
+            {isNoSearchResults
               ? "Nenhum Resultado Encontrado"
               : "Nenhum Usuário Registrado"}
           </Typography>
-          <Typography variant="body2" className="empty-subtitle">
-            {debouncedSearch
-              ? "Não foi possível achar nenhum resultado para sua busca. Tente refazer a pesquisa para encontrar o que busca."
-              : "Clique em 'Cadastrar Usuário' para começar a cadastrar."}
-          </Typography>
+          {isNoSearchResults ? (
+            <div className="empty-subtitle-wrapper">
+              <Typography variant="body2" className="empty-subtitle">
+                Não foi possível achar nenhum resultado para sua busca.
+              </Typography>
+              <Typography variant="body2" className="empty-subtitle">
+                Tente refazer a pesquisa para encontrar o que busca.
+              </Typography>
+            </div>
+          ) : (
+            <Typography variant="body2" className="empty-subtitle">
+              Clique em &apos;Cadastrar Usuário&apos; para começar a cadastrar.
+            </Typography>
+          )}
         </div>
       );
     }
