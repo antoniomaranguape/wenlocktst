@@ -27,7 +27,7 @@ import {
 import { ViewIcon } from "../../assets/icons/ViewIcon";
 import { PenIcon } from "../../assets/icons/PenIcon";
 import { TrashIcon } from "../../assets/icons/TrashIcon";
-import type { User } from "../../interface/user.interface";
+import type { User } from "../../types/user.interface";
 import { useUsers } from "../../hooks/useUsers";
 import { useDeleteUser } from "../../hooks/useDeleteUser";
 import ConfirmationModal from "../../components/ConfirmationModal";
@@ -87,7 +87,7 @@ const UserPage = () => {
   const handleViewUser = (userId: string) => navigate(`/user/visualizar/${userId}`);
   const handleAddUser = () => navigate("/user/cadastro");
   const handleDeleteUser = (userId: string) => openDeleteModal(userId);
-  const handleEditUser = (userId: string) => navigate(`/usuarios/edit/${userId}`);
+  const handleEditUser = (userId: string) => navigate(`/user/edit/${userId}`);
 
   const renderTableContent = () => {
     if (isLoading) {
