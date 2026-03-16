@@ -34,48 +34,6 @@ export const UsersActions = styled.div`
   margin-bottom: 20px;
 `;
 
-export const SearchFieldWrapper = styled.div`
-  width: 285px;
-  background-color: ${fullBranco};
-  border-radius: 7px;
-  box-shadow: 0px 3px 6px #00000029;
-  border: 1px solid #86868645;
-
-  .MuiOutlinedInput-root {
-    border: none;
-
-    .MuiOutlinedInput-notchedOutline {
-      border: 1px solid #86868645;
-      transition: border 0.2s ease;
-    }
-
-    &:hover .MuiOutlinedInput-notchedOutline {
-      border: 1px solid #86868680;
-    }
-
-    &.Mui-focused .MuiOutlinedInput-notchedOutline {
-      border: 2px solid #00aac1;
-      border-radius: 7px;
-    }
-  }
-
-  &:hover {
-    background-color: #e3e3e3;
-  }
-
-  .MuiInputBase-input::placeholder {
-    color: ${verdeEscuro};
-    opacity: 0.86;
-  }
-
-  .clear-btn {
-    color: #666;
-    &:hover {
-      color: #333;
-    }
-  }
-`;
-
 export const AddButton = styled(Button)`
   background-color: ${colorTeal} !important;
   color: ${fullBranco} !important;
