@@ -27,6 +27,7 @@ import {
 import { ViewIcon } from "../../assets/icons/ViewIcon";
 import { PenIcon } from "../../assets/icons/PenIcon";
 import { TrashIcon } from "../../assets/icons/TrashIcon";
+import type { User } from "../../interface/user.interface";
 import { useUsers } from "../../hooks/useUsers";
 import { useUserDetails } from "../../hooks/useUserDetails";
 import { useDeleteUser } from "../../hooks/useDeleteUser";
@@ -42,7 +43,7 @@ import {
   UsersTableContainer,
 } from "./styles";
 
-const User = () => {
+const UserPage = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
@@ -96,7 +97,7 @@ const User = () => {
   const handleLastPage = () => setPage(totalPages);
 
   const handleViewUser = (userId: string) => openUserDetails(userId);
-  const handleAddUser = () => navigate("/usuarios/cadastro");
+  const handleAddUser = () => navigate("/user/cadastro");
   const handleDeleteUser = (userId: string) => openDeleteModal(userId);
   const handleEditUser = (userId: string) => navigate(`/usuarios/edit/${userId}`);
 
@@ -156,7 +157,7 @@ const User = () => {
             </TableRow>
           </TableHead>
           <TableBody className="table-body">
-            {users.map((u) => (
+            {users.map((u: User) => (
               <TableRow key={u.id} sx={{ position: "relative", top: 10 }}>
                 <TableCell>{u.name}</TableCell>
                 <TableCell align="right" className="action-buttons">
@@ -321,4 +322,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default UserPage;
