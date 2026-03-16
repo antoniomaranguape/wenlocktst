@@ -1,5 +1,5 @@
-import type { CreateUserData, UpdateUserData, User } from "../interface/user.interface";
-import type { PaginatedResponse } from "../interface/response.interface";
+import type { CreateUserData, UpdateUserData, User } from "../types/user.interface";
+import type { PaginatedResponse } from "../types/response.interface";
 
 const STORAGE_KEY = "wenlock-users";
 
