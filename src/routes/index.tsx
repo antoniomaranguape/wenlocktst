@@ -2,6 +2,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import { GlobalStyles } from "../pages/styles/styles";
 import Home from "../pages/home";
 import User from "../pages/user";
+import CreateUser from "../pages/user/users-pages/createUser";
 import App from "../pages/app";
 import { Login } from "../pages/login";
 import { ProtectedRoute } from "./ProtectedRoute";
@@ -17,6 +18,7 @@ export const Router = () => {
           <Route element={<App />}>
             <Route path="/home" element={<Home />} />
             <Route path="/user" element={<User />} />
+            <Route path="/user/cadastro" element={<CreateUser />} />
           </Route>
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
