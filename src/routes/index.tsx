@@ -3,6 +3,7 @@ import { GlobalStyles } from "../pages/styles/styles";
 import Home from "../pages/home";
 import User from "../pages/user";
 import CreateUser from "../pages/user/users-pages/createUser";
+import ViewUser from "../pages/user/users-pages/viewUser";
 import App from "../pages/app";
 import { Login } from "../pages/login";
 import { ProtectedRoute } from "./ProtectedRoute";
@@ -19,6 +20,7 @@ export const Router = () => {
             <Route path="/home" element={<Home />} />
             <Route path="/user" element={<User />} />
             <Route path="/user/cadastro" element={<CreateUser />} />
+            <Route path="/user/visualizar/:id" element={<ViewUser />} />
           </Route>
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
