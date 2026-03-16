@@ -3,7 +3,7 @@ import {
   Alert,
   Typography,
 } from "@mui/material";
-import type { User } from "../../interface/user.interface";
+import type { User } from "../../types/user.interface";
 import {
   StyledDrawer,
   DrawerContainer,

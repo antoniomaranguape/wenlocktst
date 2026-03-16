@@ -1,11 +1,8 @@
-import type React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Typography,
   IconButton,
-  InputAdornment,
-  TextField,
   Table,
   TableBody,
   TableCell,
@@ -17,13 +14,12 @@ import {
 } from "@mui/material";
 import {
   Add as AddIcon,
-  Search as SearchIcon,
-  Clear as ClearIcon,
   KeyboardArrowLeft as KeyboardArrowLeftIcon,
   KeyboardArrowRight as KeyboardArrowRightIcon,
   FirstPage as FirstPageIcon,
   LastPage as LastPageIcon,
 } from "@mui/icons-material";
+import { Search } from "../../components/Search";
 import { ViewIcon } from "../../assets/icons/ViewIcon";
 import { PenIcon } from "../../assets/icons/PenIcon";
 import { TrashIcon } from "../../assets/icons/TrashIcon";
@@ -36,14 +32,12 @@ import {
   UsersContainer,
   PageTitle,
   UsersActions,
-  SearchFieldWrapper,
   AddButton,
   UsersTableContainer,
 } from "./styles";
 
 const UserPage = () => {
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
   const itemsPerPage = 15;
   const [debouncedSearch, setDebouncedSearch] = useState("");
@@ -52,10 +46,10 @@ const UserPage = () => {
   const { isDeleteModalOpen, openDeleteModal, closeDeleteModal, confirmDelete } =
     useDeleteUser();
 
-  useEffect(() => {
-    const timer = setTimeout(() => setDebouncedSearch(searchTerm), 500);
-    return () => clearTimeout(timer);
-  }, [searchTerm]);
+  const handleSearch = (value: string) => {
+    setDebouncedSearch(value);
+    setPage(1);
+  };
 
   const { data: usersData, isLoading, isError, error } = useUsers({
     page,
@@ -71,13 +65,6 @@ const UserPage = () => {
   useEffect(() => {
     if (usersData?.meta?.currentPage) setPage(usersData.meta.currentPage);
   }, [usersData?.meta?.currentPage]);
-
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-    setPage(1);
-  };
-
-  const handleClearSearch = () => setSearchTerm("");
 
   const handleFirstPage = () => setPage(1);
   const handlePreviousPage = () => page > 1 && setPage(page - 1);
@@ -114,7 +101,7 @@ const UserPage = () => {
     if (users.length === 0) {
       return (
         <div className="empty-state">
-          {searchTerm ? (
+          {debouncedSearch ? (
             <img
               src={NotFoundImg}
               alt="Nenhum resultado"
@@ -122,12 +109,12 @@ const UserPage = () => {
             />
           ) : null}
           <Typography variant="h6" className="empty-title">
-            {searchTerm
+            {debouncedSearch
               ? "Nenhum Resultado Encontrado"
               : "Nenhum Usuário Registrado"}
           </Typography>
           <Typography variant="body2" className="empty-subtitle">
-            {searchTerm
+            {debouncedSearch
               ? "Não foi possível achar nenhum resultado para sua busca. Tente refazer a pesquisa para encontrar o que busca."
               : "Clique em 'Cadastrar Usuário' para começar a cadastrar."}
           </Typography>
@@ -204,37 +191,7 @@ const UserPage = () => {
       </div>
 
       <UsersActions>
-        <SearchFieldWrapper>
-          <TextField
-            placeholder="Pesquisa"
-            variant="outlined"
-            size="small"
-            value={searchTerm}
-            onChange={handleSearchChange}
-            fullWidth
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-              endAdornment:
-                searchTerm !== "" ? (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="clear search"
-                      onClick={handleClearSearch}
-                      edge="end"
-                      size="small"
-                      className="clear-btn"
-                    >
-                      <ClearIcon fontSize="small" />
-                    </IconButton>
-                  </InputAdornment>
-                ) : null,
-            }}
-          />
-        </SearchFieldWrapper>
+        <Search placeholder="Pesquisa" onSearch={handleSearch} />
         <AddButton variant="contained" startIcon={<AddIcon />} onClick={handleAddUser}>
           Cadastrar Usuário
         </AddButton>
