@@ -1,6 +1,25 @@
-import api from "./api";
 import type { CreateUserData, UpdateUserData, User } from "../interface/user.interface";
 import type { PaginatedResponse } from "../interface/response.interface";
+
+const STORAGE_KEY = "wenlock-users";
+
+function loadUsersFromStorage(): User[] {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) return [];
+  try {
+    return JSON.parse(raw) as User[];
+  } catch {
+    return [];
+  }
+}
+
+function saveUsersToStorage(users: User[]) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
+}
+
+function generateId() {
+  return crypto.randomUUID ? crypto.randomUUID() : String(Date.now());
+}
 
 export const UserService = {
   getUsers: async (
@@ -8,58 +27,90 @@ export const UserService = {
     limit = 15,
     search?: string
   ): Promise<PaginatedResponse<User>> => {
-    try {
-      const params = new URLSearchParams();
-      if (page > 1) params.append("page", page.toString());
-      params.append("limit", limit.toString());
-      if (search) params.append("search", search);
+    let users = loadUsersFromStorage();
 
-      const response = await api.get<PaginatedResponse<User>>(
-        `/users?${params.toString()}`
+    if (search) {
+      const term = search.toLowerCase();
+      users = users.filter(
+        (u) =>
+          u.name.toLowerCase().includes(term) ||
+          u.email.toLowerCase().includes(term) ||
+          u.matricula.toLowerCase().includes(term)
       );
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching users:", error);
-      return {
-        items: [],
-        meta: {
-          totalItems: 0,
-          itemCount: 0,
-          itemsPerPage: limit,
-          totalPages: 0,
-          currentPage: page,
-        },
-        links: {
-          first: "",
-          previous: "",
-          next: "",
-          last: "",
-        },
-      };
     }
+
+    const totalItems = users.length;
+    const totalPages = Math.max(1, Math.ceil(totalItems / limit));
+    const currentPage = Math.min(page, totalPages);
+    const start = (currentPage - 1) * limit;
+    const items = users.slice(start, start + limit);
+
+    return {
+      items,
+      meta: {
+        totalItems,
+        itemCount: items.length,
+        itemsPerPage: limit,
+        totalPages,
+        currentPage,
+      },
+      links: {
+        first: "",
+        previous: "",
+        next: "",
+        last: "",
+      },
+    };
   },
 
   getUserById: async (id: string): Promise<User | null> => {
-    try {
-      const response = await api.get<User>(`/users/${id}`);
-      return response.data;
-    } catch (error) {
-      console.error(`Error fetching user with ID ${id}:`, error);
-      return null;
-    }
+    const users = loadUsersFromStorage();
+    const user = users.find((u) => u.id === id);
+    return user ?? null;
   },
 
   createUser: async (userData: CreateUserData): Promise<User> => {
-    const response = await api.post<User>("/users", userData);
-    return response.data;
+    const users = loadUsersFromStorage();
+    const now = new Date().toISOString();
+    const newUser: User = {
+      id: generateId(),
+      name: userData.name,
+      email: userData.email,
+      matricula: userData.matricula,
+      isActive: true,
+      createdAt: now,
+      updatedAt: now,
+    };
+
+    users.push(newUser);
+    saveUsersToStorage(users);
+
+    return newUser;
   },
 
   updateUser: async (id: string, userData: UpdateUserData): Promise<User> => {
-    const response = await api.patch<User>(`/users/${id}`, userData);
-    return response.data;
+    const users = loadUsersFromStorage();
+    const index = users.findIndex((u) => u.id === id);
+    if (index === -1) {
+      throw new Error("User not found");
+    }
+
+    const updated: User = {
+      ...users[index],
+      ...userData,
+      updatedAt: new Date().toISOString(),
+    };
+
+    users[index] = updated;
+    saveUsersToStorage(users);
+
+    return updated;
   },
 
   deleteUser: async (id: string): Promise<void> => {
-    await api.delete(`/users/${id}`);
+    const users = loadUsersFromStorage();
+    const filtered = users.filter((u) => u.id !== id);
+    saveUsersToStorage(filtered);
   },
 };
+
