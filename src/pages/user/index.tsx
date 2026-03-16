@@ -29,9 +29,7 @@ import { PenIcon } from "../../assets/icons/PenIcon";
 import { TrashIcon } from "../../assets/icons/TrashIcon";
 import type { User } from "../../interface/user.interface";
 import { useUsers } from "../../hooks/useUsers";
-import { useUserDetails } from "../../hooks/useUserDetails";
 import { useDeleteUser } from "../../hooks/useDeleteUser";
-import UserDetailsDrawer from "../../components/UserDetailsDrawer";
 import ConfirmationModal from "../../components/ConfirmationModal";
 import NotFoundImg from "../../assets/imagens/notfound-img.svg";
 import {
@@ -50,16 +48,6 @@ const UserPage = () => {
   const itemsPerPage = 15;
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [hoveredButton, setHoveredButton] = useState<string | null>(null);
-
-  const {
-    user,
-    isOpen,
-    isLoading: isLoadingUserDetails,
-    isError: isErrorUserDetails,
-    error: errorUserDetails,
-    openUserDetails,
-    closeUserDetails,
-  } = useUserDetails();
 
   const { isDeleteModalOpen, openDeleteModal, closeDeleteModal, confirmDelete } =
     useDeleteUser();
@@ -96,7 +84,7 @@ const UserPage = () => {
   const handleNextPage = () => page < totalPages && setPage(page + 1);
   const handleLastPage = () => setPage(totalPages);
 
-  const handleViewUser = (userId: string) => openUserDetails(userId);
+  const handleViewUser = (userId: string) => navigate(`/user/visualizar/${userId}`);
   const handleAddUser = () => navigate("/user/cadastro");
   const handleDeleteUser = (userId: string) => openDeleteModal(userId);
   const handleEditUser = (userId: string) => navigate(`/usuarios/edit/${userId}`);
@@ -301,15 +289,6 @@ const UserPage = () => {
           </div>
         </div>
       </UsersTableContainer>
-
-      <UserDetailsDrawer
-        isOpen={isOpen}
-        onClose={closeUserDetails}
-        user={user}
-        isLoading={isLoadingUserDetails}
-        isError={isErrorUserDetails}
-        error={errorUserDetails as Error}
-      />
 
       <ConfirmationModal
         isOpen={isDeleteModalOpen}
